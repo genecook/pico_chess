@@ -19,6 +19,7 @@ to start ocd:
 to run gdb:
 
    gdb-multiarch hello_world.elf
+   target remote localhost:3333
    monitor reset init
    continue
 

@@ -19,7 +19,7 @@ add_executable(hello_world
         )
 
 # Pull in our pico_stdlib which aggregates commonly used features
-target_link_libraries(hello_world pico_stdlib)
+target_link_libraries(hello_world pico_stdlib pico_multicore)
 
 # enable uart output, disable usb output
 pico_enable_stdio_usb(hello_world 0)
