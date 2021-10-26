@@ -27,7 +27,7 @@ void to_xboard(std::string tbuf) {
 // stream player entry point...
 //*************************************************************************
 
-int Play(PicoChess::Engine *my_little_engine) {
+int Play(PicoChess::ChessEngine *my_little_engine) {
   int rcode = 0;
   
   // we 'parse' just enough of xboard commands, responses, to drive our engine...

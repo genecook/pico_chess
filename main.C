@@ -7,7 +7,7 @@
 #include <pico_chess.h>
 
 namespace PicoStreamPlayer {
-  int Play(PicoChess::Engine *the_engine);
+  int Play(PicoChess::ChessEngine *the_engine);
 }
 
 int main() {
@@ -15,7 +15,7 @@ int main() {
 
   std::cout << "Pico Chess, Alpha version..." << std::endl;
   
-  PicoChess::Engine my_little_engine;
+  PicoChess::ChessEngine my_little_engine;
   
   PicoStreamPlayer::Play(&my_little_engine);
   
