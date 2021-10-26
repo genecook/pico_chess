@@ -16,7 +16,7 @@ include(example_auto_set_url)
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-add_executable(pico_chess main.C pico_stream_player.C pico_chess.C)
+add_executable(pico_chess main.C pico_stream_player.C pico_chess.C board.C)
 
 # Pull in our pico_stdlib which aggregates commonly used features
 target_link_libraries(pico_chess pico_stdlib pico_multicore)
