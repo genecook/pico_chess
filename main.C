@@ -1,9 +1,14 @@
 // dude...
 
 #include <stdio.h>
+#include <iostream>
+#include <string>
+#include <queue>
+
 #include "pico/stdlib.h"
-#include "pico/float.h"
 #include "pico/multicore.h"
+
+#include <pico_chess.h>
 
 #define FLAG_VALUE 123
 
@@ -22,7 +27,8 @@ void core1_main() {
   
   uint32_t g = multicore_fifo_pop_blocking();
   if (g == FLAG_VALUE) {
-    multicore_fifo_push_blocking(FLAG_VALUE);
+    // have response from other core...
+    //multicore_fifo_push_blocking(FLAG_VALUE);
   } else {
     printf("MULTICORE PROBLEMS DETECTED - CORE 1 ???\n");
   }
@@ -41,6 +47,10 @@ void core1_main() {
 //********************************************************************
 // (main) entry point - core 0...
 //********************************************************************
+
+namespace PicoStreamPlayer {
+  int Play(PicoChess::Engine *the_engine);
+}
 
 int main() {
   stdio_init_all();
@@ -62,6 +72,13 @@ int main() {
   printf("Core 1 active, detected from core 0...\n");
   
   // both cores active and okay to proceed...
+
+/*
+  printf(">>>");
+  
+  std::string tbuf;
+  std::cin >> tbuf;
+  std::cout << "'" << tbuf << "'"<< std::endl;
   
   while(true) {
     printf("Dude, dude, dude!\n");
@@ -69,6 +86,11 @@ int main() {
     multicore_fifo_push_blocking(c); 
     sleep_ms(1000);
   }
+*/
+
+  PicoChess::Engine my_little_engine;
+  
+  PicoStreamPlayer::Play(&my_little_engine);
   
   return 0;
 }
