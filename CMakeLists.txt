@@ -14,21 +14,21 @@ pico_sdk_init()
 
 include(example_auto_set_url)
 
-add_executable(hello_world
+add_executable(pico_chess
         main.C
         )
 
 # Pull in our pico_stdlib which aggregates commonly used features
-target_link_libraries(hello_world pico_stdlib pico_multicore)
+target_link_libraries(pico_chess pico_stdlib pico_multicore)
 
 # enable uart output, disable usb output
-pico_enable_stdio_usb(hello_world 0)
-pico_enable_stdio_uart(hello_world 1)
+pico_enable_stdio_usb(pico_chess 0)
+pico_enable_stdio_uart(pico_chess 1)
 
 # create map/bin/hex/uf2 file etc.
-pico_add_extra_outputs(hello_world)
+pico_add_extra_outputs(pico_chess)
 
 # add url via pico_set_program_url
-pico_set_program_url(hello_world "www.plinth.com/foo")
+pico_set_program_url(pico_chess "www.plinth.com/foo")
 
 
