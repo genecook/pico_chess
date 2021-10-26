@@ -11,10 +11,10 @@ to stop minicom:
 
    Ctrl-A, Z then X
  
-to start ocd:
+to start ocd (so far, can only load and flash a new elf using the -c option):
 
    cd ~/Desktop/pico/openocd
-   sudo src/openocd -f tcl/interface/picoprobe.cfg -f tcl/target/rp2040.cfg -s tcl
+   sudo src/openocd -f tcl/interface/picoprobe.cfg -f tcl/target/rp2040.cfg -s tcl -c "program hello_world.elf"
 
 to run gdb:
 
@@ -23,6 +23,12 @@ to run gdb:
    monitor reset init
    continue
 
+to load/run (but NOT flash) new program image (from already running gdb session):
+
+   ctrl-C                   ### to interrupt gdb
+   load hello_world.elf     ### load (presumably updated) elf image into memory
+   continue                 ### resume (start) execution
+   
 to stop gdb:
    Ctrl-C
    quit
