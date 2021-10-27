@@ -1,6 +1,4 @@
-#include <string>
-#include <pico_chess.h>
-#include <engine.h>
+#include <chess.h>
 
 namespace PicoChess {
   

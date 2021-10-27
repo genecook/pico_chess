@@ -1,12 +1,11 @@
 #include <iostream>
 #include <string>
-#include <queue>
+//#include <queue>
 
 #include "pico/stdlib.h"
-#include "pico/multicore.h"
+//#include "pico/multicore.h"
 
-#include <pico_chess.h>
-#include <engine.h>
+#include <chess.h>
 
 namespace PicoStreamPlayer {
   

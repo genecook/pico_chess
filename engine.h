@@ -1,9 +1,5 @@
 #ifndef __CHESS_ENGINE__
 
-#include <pico_chess.h>
-
-namespace PicoChess {
-
 class ChessEngine {
   public:
     ChessEngine() : color(BLACK), num_moves(0), num_turns(0), debug(false) {};
@@ -25,6 +21,5 @@ class ChessEngine {
     bool debug;
 };
 
-}
 #endif
 #define __CHESS_ENGINE__

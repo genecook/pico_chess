@@ -1,10 +1,7 @@
-#include <pico_chess.h>
-#include <board.h>
+#include <chess.h>
 
 namespace PicoChess {
 
-//#define USE_EXCEPTIONS
-  
 //******************************************************************************************
 // setup board for new game...
 //******************************************************************************************

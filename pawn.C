@@ -1,14 +1,4 @@
-#include <string>
-//#include <stdexcept>
-//#include <iostream>
-//#include <assert.h>
-
-#include <pico_chess.h>
-#include <pieces.h>
-#include <board.h>
-#include <move.h>
-
-//#define USE_ASSERTS
+#include <chess.h>
 
 namespace PicoChess {
 

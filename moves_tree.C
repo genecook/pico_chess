@@ -4,10 +4,8 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <bits/stdc++.h>
-#include <pico_chess.h>
-#include <moves_tree.h>
 
-//#define USE_EXCEPTIONS
+#include <chess.h>
 
 namespace PicoChess {
 

@@ -1,11 +1,4 @@
-#include <string>
-//#include <stdexcept>
-//#include <unistd.h>
-#include <iostream>
-
-#include <pico_chess.h>
-#include <pieces.h>
-#include <board.h>
+#include <chess.h>
 
 namespace PicoChess {
 

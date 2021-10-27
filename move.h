@@ -4,12 +4,6 @@
 // Move - represents a single chess move
 //******************************************************************************
 
-#include <iostream>
-
-//#define USE_ASSERT
-
-namespace PicoChess {
-
 class Move {
 public:
   Move() : pm_count(0) { InitMove(); };
@@ -133,7 +127,5 @@ protected:
                                         //   (32 or 64 bits usually)
 };
 
-};
-  
 #endif
 #define __MOVE__

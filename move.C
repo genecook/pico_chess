@@ -1,7 +1,4 @@
-#include <iostream>
-#include <pico_chess.h>
-#include <board.h>
-#include <move.h>
+#include <chess.h>
 
 namespace PicoChess {
   

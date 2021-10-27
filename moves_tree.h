@@ -4,21 +4,6 @@
 // MovesTree
 //******************************************************************************
 
-#include <string>
-#include <iostream>
-#include <stdlib.h>
-#include <vector>
-#include <algorithm>
-
-#include <pico_chess.h>
-#include <board.h>
-#include <pieces.h>
-#include <move.h>
-
-//#define GRAPH_SUPPORT 1
-
-namespace PicoChess {
-
 #ifdef GRAPH_SUPPORT
 extern int master_move_id;
 #endif
@@ -56,8 +41,10 @@ public:
   ~MovesTreeNode() { Flush(); };
 
   MovesTreeNode *AddMove(Move new_move) {
+#ifdef USE_ASSERTS
     assert ( (pm_count + 1) < INT_LEAST8_MAX );
-    
+#endif
+
     MovesTreeNode *new_node = (MovesTreeNode *) malloc( sizeof(MovesTreeNode) );
     
     new_node->Set(&new_move);
@@ -80,7 +67,9 @@ public:
 
   void Flush() {
     if (pm_count > 0) {
+#ifdef USE_ASSERTS
       assert(possible_moves != NULL);
+#endif
       for (int i = 0; i < pm_count; i++) {
          possible_moves[i]->Flush();
          free(possible_moves[i]);
@@ -89,7 +78,9 @@ public:
       pm_count = 0;
       possible_moves = NULL;
     } else {
+#ifdef USE_ASSERTS
       assert( (pm_count == 0) && (possible_moves == NULL) );
+#endif
     }
   };
 
@@ -197,8 +188,6 @@ class MovesTreeMinimax : public MovesTree {
 
   void ChooseMoveInner(MovesTreeNode *current_node, Board &current_board, int current_color,
 		       int current_level, int alpha, int beta);
-};
-
 };
 
 #endif

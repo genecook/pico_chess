@@ -1,19 +1,9 @@
 #ifndef __PIECES__
 
-#include <string>
-#include <vector>
-
-namespace PicoChess {
-
 //*****************************************************************************
 // chess piece, pieces...
 //*****************************************************************************
 
-//#define USE_EXCEPTIONS
-  
-class Board;
-class Move;
-  
 class Piece {
   
 public:
@@ -208,8 +198,6 @@ private:
   Bishop bishop;
   Queen  queen;
   King   king;
-};
-
 };
 
 #endif
