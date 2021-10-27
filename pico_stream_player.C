@@ -54,8 +54,8 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
     if (input_state == SAVE_STATE) {
       // save board state to file...
       std::string save_file = tbuf;
-      to_xboard("# BBB save to file " + save_file);
-      my_little_engine->Save(save_file);
+      to_xboard("# BBB save to file not supported" + save_file);
+      //my_little_engine->Save(save_file);
       input_state = 0;
       continue;
     }
@@ -63,8 +63,8 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
     if (input_state == LOAD_STATE) {
       // load board state from file...
       std::string load_file = tbuf;
-      to_xboard("# BBB load from file " + load_file);
-      my_little_engine->Load(load_file);
+      to_xboard("# BBB load from file not supported" + load_file);
+      //my_little_engine->Load(load_file);
       input_state = 0;
       continue;
     }

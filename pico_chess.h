@@ -26,10 +26,6 @@ namespace PicoChess {
     
     void SetDebug(bool _debug) { debug = _debug; };
     
-    // load, save not implemented...
-    void Load(std::string &load_file) {};
-    void Save(std::string save_file) {};
-    
   private:
     int color;
     int num_moves;
