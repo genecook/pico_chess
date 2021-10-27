@@ -5,6 +5,7 @@
 #include "pico/stdlib.h"
 
 #include <pico_chess.h>
+#include <engine.h>
 
 namespace PicoStreamPlayer {
   int Play(PicoChess::ChessEngine *the_engine);

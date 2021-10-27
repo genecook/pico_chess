@@ -6,6 +6,7 @@
 #include "pico/multicore.h"
 
 #include <pico_chess.h>
+#include <engine.h>
 
 namespace PicoStreamPlayer {
   

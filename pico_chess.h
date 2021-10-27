@@ -12,28 +12,7 @@ namespace PicoChess {
   enum OUTCOME { UNKNOWN=0, SIMPLE_MOVE, CAPTURE, PROMOTION, THREAT, CHECK,
 		 CHECKMATE, DRAW, RESIGN, SQUARE_BLOCKED };
 
-  class ChessEngine {
-  public:
-    ChessEngine() : color(BLACK), num_moves(0), num_turns(0), debug(false) {};
-    ~ChessEngine() {};
-
-    void UserMove(std::string &usermove_err_msg, std::string usermove);
-    void NextMove(std::string &usermove_err_msg);
-    void ShowBoard();
-    void NewGame();
-    void ChangeSides();
-    void SetColor(std::string color);
-    
-    void SetDebug(bool _debug) { debug = _debug; };
-    
-  private:
-    int color;
-    int num_moves;
-    int num_turns;
-    bool debug;
-  };
-
-    // print color as string...
+  // print color as string...
   
   static std::string ColorAsStr(int color) {
     if (color == WHITE) return "white";
