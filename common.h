@@ -2,7 +2,7 @@
 
 namespace PicoChess {
 
- enum PIECE_TYPE { NONE=0, PAWN, ROOK, KNIGHT, BISHOP, KING, QUEEN };
+  enum PIECE_TYPE { NONE=0, PAWN, ROOK, KNIGHT, BISHOP, KING, QUEEN };
 
   enum COLOR { NOT_SET=0, WHITE, BLACK };
 
@@ -11,6 +11,8 @@ namespace PicoChess {
   enum OUTCOME { UNKNOWN=0, SIMPLE_MOVE, CAPTURE, PROMOTION, THREAT, CHECK,
 		 CHECKMATE, DRAW, RESIGN, SQUARE_BLOCKED };
 
+#define NUMBER_OF_LEVELS 3
+  
   // print color as string...
   
   static std::string ColorAsStr(int color) {

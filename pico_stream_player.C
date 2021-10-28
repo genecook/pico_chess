@@ -85,13 +85,12 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
 
       to_xboard("# BBB usermove " + usermove);
       
-      std::string usermove_err_msg;
-      my_little_engine->UserMove(usermove_err_msg, usermove); // color is implied
+      std::string usermove_err_msg = my_little_engine->UserMove(usermove); // color is implied
       
       if (usermove_err_msg == "") {
         // usermove accepted by engine...
       } else {
-	      // oops! problem with usermove; response from engine indicates error...
+	// oops! problem with usermove; response from engine indicates error...
         to_xboard(usermove_err_msg);
         continue;
       }
@@ -100,18 +99,21 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
         // engine is idle...
       } else {
 	// engine makes a move and responds with same...
-	std::string engine_move;
-	my_little_engine->NextMove(engine_move);
+	std::string engine_move = my_little_engine->NextMove();
         to_xboard(engine_move);
       }
       
-      if (!xboard_connected)
-        my_little_engine->ShowBoard();
+      if (!xboard_connected) {
+        // xboard not connected, so show board state
+	std::string board_as_str = my_little_engine->BoardAsString();
+	to_xboard(board_as_str); // use to_xboard even when NOT connected
+      }
       continue;
     }
       
     if (tbuf == "showboard") {
-      my_little_engine->ShowBoard();
+      std::string board_as_str = my_little_engine->BoardAsString();
+      to_xboard(board_as_str); 
       continue;
     }
       
@@ -151,8 +153,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       // 'go' instructs engine to leave force mode, then make the next move...
       force_mode = false;
       to_xboard("# BBB go");
-      std::string engine_move;
-      my_little_engine->NextMove(engine_move);
+      std::string engine_move = my_little_engine->NextMove();
       to_xboard(engine_move);
       to_xboard("# BBB " + engine_move);
       continue;
@@ -205,8 +206,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       if (force_mode) {
 	// engine is paused...
       } else {
-	std::string engine_move;
-	my_little_engine->NextMove(engine_move);
+	std::string engine_move = my_little_engine->NextMove();
         to_xboard( "move " + engine_move);
 	to_xboard("# BBB " + engine_move);
       }

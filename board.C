@@ -262,14 +262,14 @@ std::ostream& operator<< (std::ostream &os, Board &fld) {
 }
 */
 
-std::string Board::AsString(Board &fld) {
+std::string Board::AsString() {
   std::stringstream board_str;
   board_str << "#\n";
   for (int row = 7; row >= 0; row--) {
-     board_str << "# " << row + 1 << "  " << fld.Display(row,0) << " " << fld.Display(row,1)
-       << " " << fld.Display(row,2) << " " << fld.Display(row,3)
-       << " " << fld.Display(row,4) << " " << fld.Display(row,5)
-       << " " << fld.Display(row,6) << " " << fld.Display(row,7);
+     board_str << "# " << row + 1 << "  " << Display(row,0) << " " << Display(row,1)
+       << " " << Display(row,2) << " " << Display(row,3)
+       << " " << Display(row,4) << " " << Display(row,5)
+       << " " << Display(row,6) << " " << Display(row,7);
     board_str << "\n";
   }
   board_str << "\n#    a  b  c  d  e  f  g  h\n";

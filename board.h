@@ -219,7 +219,7 @@ public:
   }
 
   //friend std::ostream& operator<< (std::ostream &os, Board &fld);
-  std::string AsString(Board &fld);
+  std::string AsString();
 
   // save or load board state to/from stream...NOT IMPLEMENTED
   
