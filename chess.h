@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <bits/stdc++.h>
 
 //#define USE_EXCEPTIONS
 //#define USE_ASSERT

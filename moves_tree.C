@@ -1,10 +1,3 @@
-#include <string>
-#include <iostream>
-#include <sstream>
-#include <stdlib.h>
-#include <algorithm>
-#include <bits/stdc++.h>
-
 #include <chess.h>
 
 namespace PicoChess {
@@ -18,7 +11,7 @@ int master_move_id;
 //***********************************************************************************************
 
 // stream out MovesTreeNode object...
-
+/*
 std::ostream& operator<< (std::ostream &os, MovesTreeNode &fld) {
   os << Board::Coordinates(fld.start_row,fld.start_column)
      << Board::Coordinates(fld.end_row,fld.end_column);
@@ -27,7 +20,7 @@ std::ostream& operator<< (std::ostream &os, MovesTreeNode &fld) {
   os << " capture-type: " << CaptureTypeAsStr(fld.capture_type);
   return os;
 }
-
+*/
 
 //***********************************************************************************************
 // build up list of moves possible for specified color, given a board state.

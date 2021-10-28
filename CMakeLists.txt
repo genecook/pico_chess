@@ -23,7 +23,7 @@ add_executable(pico_chess main.C pico_stream_player.C
               )
 
 # Pull in our pico_stdlib which aggregates commonly used features
-target_link_libraries(pico_chess pico_stdlib pico_multicore)
+target_link_libraries(pico_chess pico_stdlib)
 
 # enable uart output, disable usb output
 pico_enable_stdio_usb(pico_chess 0)
