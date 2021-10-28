@@ -1,5 +1,7 @@
 #ifndef __BOARD__
 
+namespace PicoChess {
+
 //***********************************************************************************
 // the chess board...
 //***********************************************************************************
@@ -232,6 +234,8 @@ private:
   unsigned char en_passant_row;      //
   unsigned char en_passant_column;   // only one pawn at a time can be in 
   unsigned char en_passant_color;    //   'en passant' state
+};
+
 };
 
 #endif

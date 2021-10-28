@@ -1,5 +1,7 @@
 #ifndef __MOVE__
 
+namespace PicoChess {
+
 //******************************************************************************
 // Move - represents a single chess move
 //******************************************************************************
@@ -125,6 +127,8 @@ protected:
   int_least8_t  pm_count;               // moved here from sub-class MovesTreeNode as there is 'space' here
                                         //   due to how bit fields are packed into 'natural' length data element
                                         //   (32 or 64 bits usually)
+};
+
 };
 
 #endif

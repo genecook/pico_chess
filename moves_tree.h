@@ -1,5 +1,7 @@
 #ifndef __MOVETREE__
 
+namespace PicoChess {
+
 //******************************************************************************
 // MovesTree
 //******************************************************************************
@@ -188,6 +190,8 @@ class MovesTreeMinimax : public MovesTree {
 
   void ChooseMoveInner(MovesTreeNode *current_node, Board &current_board, int current_color,
 		       int current_level, int alpha, int beta);
+};
+
 };
 
 #endif
