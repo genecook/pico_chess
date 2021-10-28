@@ -1,6 +1,7 @@
 #ifndef __PICO_CHESS__
 
 #include <string>
+#include <sstream>
 #include <stdlib.h>
 #include <iostream>
 #include <vector>

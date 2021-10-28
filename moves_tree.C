@@ -295,8 +295,8 @@ Board MovesTree::MakeMove(Board &board, MovesTreeNode *pv) {
   try {
     updated_board.MakeMove(pv->StartRow(),pv->StartColumn(),pv->EndRow(),pv->EndColumn());
   } catch(std::logic_error reason) {
-    std::cout << "# Invalid move, reason: '" << reason.what() << std::endl;
-    std::cerr << "updated board: " << updated_board << std::endl;
+    //std::cout << "# Invalid move, reason: '" << reason.what() << std::endl;
+    //std::cerr << "updated board: " << updated_board << std::endl;
     exit(1);
   }
 #else
@@ -312,7 +312,7 @@ Board MovesTree::MakeMove(Board &board, MovesTreeNode *pv) {
 
 void MovesTree::GraphMovesToFile(const std::string &outfile, MovesTreeNode *node) {
 #ifndef GRAPH_SUPPORT
-    std::cout << "NOTE: This configuration does NOT support moves-tree graphing." << std::endl;
+    //std::cout << "NOTE: This configuration does NOT support moves-tree graphing." << std::endl;
     return;
 #else  
     char tbuf[1024];
@@ -337,7 +337,7 @@ void MovesTree::GraphMovesToFile(const std::string &outfile, MovesTreeNode *node
     //if (system(tbuf))
     //  std::cerr << "WARNING: Problem creating graph pdf?" << std::endl;
 
-    std::cout << "\nTo create graph pdf use: '" << tbuf << "'" << std::endl;
+    //std::cout << "\nTo create graph pdf use: '" << tbuf << "'" << std::endl;
 #endif
  }
  

@@ -80,9 +80,9 @@ public:
 
   int Score() { return score; };
   void SetScore(int _score) {
-    if ( (_score < INT_LEAST16_MIN) || (_score > INT_LEAST16_MAX) ) {
-      std::cout << INT_LEAST16_MIN << "/" << _score << "/" << INT_LEAST16_MAX << std::endl;
-    }
+    //if ( (_score < INT_LEAST16_MIN) || (_score > INT_LEAST16_MAX) ) {
+    //  std::cout << INT_LEAST16_MIN << "/" << _score << "/" << INT_LEAST16_MAX << std::endl;
+    //}
 #ifdef USE_ASSERT
     assert ( (_score >= INT_LEAST16_MIN) && (_score <= INT_LEAST16_MAX) );
 #endif

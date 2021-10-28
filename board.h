@@ -218,7 +218,8 @@ public:
     return NOT_SET;
   }
 
-  friend std::ostream& operator<< (std::ostream &os, Board &fld);
+  //friend std::ostream& operator<< (std::ostream &os, Board &fld);
+  std::string AsString(Board &fld);
 
   // save or load board state to/from stream...NOT IMPLEMENTED
   

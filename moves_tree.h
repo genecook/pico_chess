@@ -110,9 +110,9 @@ struct piece_counts {
     piece_counts() : kings(0), queens(0), bishops(0),knights(0),rooks(0),pawns(0) {};
 
     void dump(const std::string &prefix) {
-      std::cout << prefix << "# kings/queens/bishops/knights/rooks/pawns: " << kings
-      << "/" << queens << "/" << bishops << "/" << knights << "/" << rooks
-      << "/" << pawns << std::endl;
+      //std::cout << prefix << "# kings/queens/bishops/knights/rooks/pawns: " << kings
+      //<< "/" << queens << "/" << bishops << "/" << knights << "/" << rooks
+      //<< "/" << pawns << std::endl;
     };
 
     int kings;

@@ -247,7 +247,7 @@ void Board::MakeCastle(int color, bool kings_side) {
 }
 
 // stream out chess board. called after each (engine) move has been made...
-
+/*
 std::ostream& operator<< (std::ostream &os, Board &fld) {
   os << "#" << std::endl;
   for (int row = 7; row >= 0; row--) {
@@ -260,7 +260,23 @@ std::ostream& operator<< (std::ostream &os, Board &fld) {
   os << "\n#    a  b  c  d  e  f  g  h\n";
   return os;
 }
+*/
 
+std::string Board::AsString(Board &fld) {
+  std::stringstream board_str;
+  board_str << "#\n";
+  for (int row = 7; row >= 0; row--) {
+     board_str << "# " << row + 1 << "  " << fld.Display(row,0) << " " << fld.Display(row,1)
+       << " " << fld.Display(row,2) << " " << fld.Display(row,3)
+       << " " << fld.Display(row,4) << " " << fld.Display(row,5)
+       << " " << fld.Display(row,6) << " " << fld.Display(row,7);
+    board_str << "\n";
+  }
+  board_str << "\n#    a  b  c  d  e  f  g  h\n";
+  return board_str.str();
+  
+}
+  
 /*
 void Board::Save(std::ofstream &saveFile) {
   // we assume saveFile to be an open binary output stream...
