@@ -19,7 +19,8 @@ include_directories(${CMAKE_SOURCE_DIR})
 add_executable(pico_chess main.C pico_stream_player.C
                board.C move.C pieces.C
                bishop.C king.C knight.C queen.C rook.C pawn.C
-	       moves_tree.C engine.C
+	       moves_tree.C moves_tree_minimax.C eval_move.C
+	       engine.C
               )
 
 # Pull in our pico_stdlib which aggregates commonly used features

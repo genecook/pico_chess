@@ -7,7 +7,7 @@ namespace PicoChess {
 //******************************************************************************
 
 std::string ChessEngine::ChooseMove(Board &game_board, Move *suggested_move) {
-  MovesTree *moves_tree = new MovesTree(Color(), Levels());
+  MovesTree *moves_tree = new MovesTreeMinimax(Color(), Levels());
 
   Move next_move;
   int num_moves = moves_tree->ChooseMove(&next_move,game_board,suggested_move);

@@ -5,13 +5,17 @@ namespace PicoChess {
 class ChessEngine {
   public:
     ChessEngine() : color(BLACK), num_of_levels(NUMBER_OF_LEVELS),
-		    num_moves(0), num_turns(0), debug(false) {};
+		    num_moves(0), num_turns(0), debug(false) {
+       Init();		    
+    };
     ~ChessEngine() {};
 
-  void Init(int _color, int _num_of_levels = NUMBER_OF_LEVELS, bool _debug = false) {
+  void Init(int _color = BLACK, int _num_of_levels = NUMBER_OF_LEVELS, bool _debug = false) {
          color = _color;
          num_of_levels = _num_of_levels;
          debug = _debug;
+
+	 NewGame();
        };
 
     std::string ChooseMove(Board &game_board, Move *suggested_move = NULL);

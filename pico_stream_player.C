@@ -99,8 +99,9 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
         // engine is idle...
       } else {
 	// engine makes a move and responds with same...
+	to_xboard("# BBB engine to make move...");
 	std::string engine_move = my_little_engine->NextMove();
-        to_xboard(engine_move);
+        to_xboard("# BBB engine move made: " + engine_move);
       }
       
       if (!xboard_connected) {
