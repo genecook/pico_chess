@@ -11,8 +11,12 @@ std::string ChessEngine::ChooseMove(Board &game_board, Move *suggested_move) {
 
   Move next_move;
   int num_moves = moves_tree->ChooseMove(&next_move,game_board,suggested_move);
+
+  char tbuf[128];
+  sprintf(tbuf,"# of levels: %d, number of moves evaluated: %d\n",
+	  moves_tree->MaxLevels(), moves_tree->MovesEvalCount());
   
-  std::string move_str = NextMoveAsString(&next_move);
+  std::string move_str = std::string(tbuf) + NextMoveAsString(&next_move);
 
   delete moves_tree;
   

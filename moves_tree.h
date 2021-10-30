@@ -129,7 +129,7 @@ struct piece_counts {
 
 class MovesTree {
  public:
-  MovesTree(int _color, int _max_levels) : color(_color), max_levels(_max_levels) {
+  MovesTree(int _color, int _max_levels) : color(_color), max_levels(_max_levels), moves_eval_count(0) {
     root_node = new MovesTreeNode;
   };
   
@@ -138,6 +138,9 @@ class MovesTree {
   virtual int ChooseMove(Move *next_move, Board &game_board, Move *suggested_move = NULL) { return 0; };
   bool GetMoves(std::vector<Move> *possible_moves, Board &game_board, int color,bool avoid_check = true);
   bool Check(Board &board,int color);
+  
+  int MaxLevels() { return max_levels; };
+  int MovesEvalCount() { return moves_eval_count; };
   
   static Board MakeMove(Board &board, MovesTreeNode *pv);
 
@@ -158,11 +161,11 @@ class MovesTree {
   int OtherColor(int current_color) { return (current_color == WHITE) ? BLACK : WHITE; };
   int NextColor(int current_color) { return OtherColor(current_color);  };
   
-  int MaxLevels() { return max_levels; };
-
   void GraphMovesToFile(const std::string &outfile, MovesTreeNode *node);
   void GraphMoves(std::ofstream &grfile, MovesTreeNode *node, int level);
 
+  void IncrementMovesEvalCount() { moves_eval_count++; };
+  
   MovesTreeNode *root_node;
 
   int color;
@@ -173,6 +176,8 @@ class MovesTree {
   int kings_row;
   int kings_column;
 
+  int moves_eval_count;
+  
   Pieces pieces; // used to generate moves for each chess piece type
 };
 

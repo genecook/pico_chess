@@ -146,6 +146,8 @@ void MovesTree::EvalBoard(MovesTreeNode *move, Board &current_board, int forced_
   int score = MaterialScore(current_board) * bias;
 
   move->SetScore(score);
+
+  IncrementMovesEvalCount();
 }
   
 }
