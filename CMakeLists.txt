@@ -14,13 +14,13 @@ pico_sdk_init()
 
 include(example_auto_set_url)
 
-include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
-add_executable(pico_chess main.C pico_stream_player.C
-               board.C move.C pieces.C
-               bishop.C king.C knight.C queen.C rook.C pawn.C
-	       moves_tree.C moves_tree_minimax.C eval_move.C
-	       engine.C
+add_executable(pico_chess src/main.C src/pico_stream_player.C
+               src/board.C src/move.C src/pieces.C
+               src/bishop.C src/king.C src/knight.C src/queen.C src/rook.C src/pawn.C
+	       src/moves_tree.C src/moves_tree_minimax.C src/eval_move.C
+	       src/engine.C
               )
 
 # Pull in our pico_stdlib which aggregates commonly used features
