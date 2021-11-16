@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.12)
 
-set(CMAKE_MODULE_PATH ~/Desktop/pico/pico-sdk ~/Desktop/pico/pico-examples)
+# bash shell variable defs define where pico sdk, examples are installed:
+#   export PICO_SDK_PATH=~/Desktop/pico-sdk
+#   export PICO_EXAMPLES=~/Desktop/pico-examples
+
+set(CMAKE_MODULE_PATH $ENV{PICO_SDK_PATH} $ENV{PICO_EXAMPLES})
 
 # Pull in SDK (must be before project)
 include(pico_sdk_import)
