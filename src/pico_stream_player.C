@@ -9,6 +9,10 @@
 
 namespace PicoStreamPlayer {
   
+#ifdef REDIRECT_XBOARD_CALLS
+void get_next_token(std::string &next_token);
+void to_xboard(std::string tbuf);
+#else
 // retreive the next xboard token...
   
 void get_next_token(std::string &next_token) {    
@@ -22,7 +26,9 @@ void get_next_token(std::string &next_token) {
 void to_xboard(std::string tbuf) {
   std::cout << tbuf << std::endl;
 }
+#endif
 
+  
 //*************************************************************************
 // stream player entry point...
 //*************************************************************************
