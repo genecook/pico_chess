@@ -30,9 +30,22 @@ To start ocd (so far, can only load and flash a new elf using the -c option):
    cd ~/Desktop/pico/openocd
    sudo src/openocd -f tcl/interface/picoprobe.cfg -f tcl/target/rp2040.cfg -s tcl -c "program hello_world.elf"
 
+To compile with debug symbols (using cmake version 3.16.3):
+
+   1. Add the following line below the 'project' line in the CMakeLists.txt file
+   
+      set(CMAKE_BUILD_TYPE Debug)
+
+   2. Use:
+
+      cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER_ID:STRING=GNU ..
+      
+   3. Make as usual 
+
 To run gdb:
 
    gdb-multiarch hello_world.elf
+   file hello_world.elf           ### gdb-multiarch doesn't automatically load debug symbols
    target remote localhost:3333
    monitor reset init
    continue
