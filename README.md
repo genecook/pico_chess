@@ -45,8 +45,8 @@ To compile with debug symbols (using cmake version 3.16.3):
 To run gdb:
 
    gdb-multiarch hello_world.elf
-   file hello_world.elf           ### gdb-multiarch doesn't automatically load debug symbols
    target remote localhost:3333
+   file hello_world.elf           ### gdb-multiarch doesn't automatically load debug symbols
    monitor reset init
    continue
 
