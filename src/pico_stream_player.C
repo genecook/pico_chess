@@ -38,7 +38,8 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
   
   // we 'parse' just enough of xboard commands, responses, to drive our engine...
   
-  enum { ACCEPT_STATE = 1, MOVE_STATE = 2, SAVE_STATE = 3, LOAD_STATE = 4, DEBUG_STATE = 5 };
+  enum { ACCEPT_STATE = 1, MOVE_STATE = 2, SAVE_STATE = 3, LOAD_STATE = 4, DEBUG_STATE = 5,
+         CHECK_MOVE_STATE = 6 };
   
   int input_state = 0;            // parsing state
 
@@ -83,7 +84,18 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       input_state = 0;      
       continue;
     }
-      
+     
+    if (input_state == CHECK_MOVE_STATE) {
+      // sanity check on proposed move...
+      std::string usermove = tbuf;
+
+      if (my_little_engine->PrecheckUserMove(usermove))
+        to_xboard("# BBB OK move");
+      else
+	to_xboard("# BBB BAD move");
+      input_state = 0;
+    }
+    
     if (input_state == MOVE_STATE) {
       // process 'user' move...
       std::string usermove = tbuf;
@@ -91,14 +103,14 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
 
       to_xboard("# BBB usermove " + usermove);
       
-      std::string usermove_err_msg = my_little_engine->UserMove(usermove); // color is implied
-      
+      std::string usermove_err_msg = my_little_engine->UserMove(usermove);
+     
       if (usermove_err_msg == "") {
         // usermove accepted by engine...
       } else {
 	// oops! problem with usermove; response from engine indicates error...
         to_xboard(usermove_err_msg);
-        continue;
+	continue;
       }
       
       if (force_mode) {
@@ -206,7 +218,13 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       input_state = MOVE_STATE;
       continue;
     }
-      
+    
+    if (tbuf == "checkmove") {
+      // next token is move to check from xboard...
+      input_state = CHECK_MOVE_STATE;
+      continue;
+    }
+	
     if (tbuf == "?") {
       to_xboard("# BBB ?");	
       // move now, if the engine is enabled, else ignore...

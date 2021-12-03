@@ -10,7 +10,8 @@ class ChessEngine {
     };
     ~ChessEngine() {};
 
-  void Init(int _color = BLACK, int _num_of_levels = NUMBER_OF_LEVELS, bool _debug = false) {
+  void Init(int _color = BLACK, int _num_of_levels = NUMBER_OF_LEVELS,
+	    bool _debug = false) {
          color = _color;
          num_of_levels = _num_of_levels;
          debug = _debug;
@@ -20,7 +21,8 @@ class ChessEngine {
 
     std::string ChooseMove(Board &game_board, Move *suggested_move = NULL);
 
-    void CrackMoveStr(int &start_row,int &start_column,int &end_row,int &end_column,std::string &move_str);
+    void CrackMoveStr(int &start_row,int &start_column,int &end_row,int &end_column,
+		      std::string &move_str);
 
     void DebugEnable(std::string move_str);
 
@@ -28,6 +30,8 @@ class ChessEngine {
 
     std::string UserMove(std::string opponents_move_str);
     std::string NextMove();
+  
+    bool PrecheckUserMove(std::string opponents_move_str);
   
     void NewGame() {
            color = BLACK;
@@ -69,7 +73,6 @@ class ChessEngine {
     return game_board.Coordinates(src->StartRow(),src->StartColumn())
       + game_board.Coordinates(src->EndRow(),src->EndColumn());
   };
-
 
   private:
     int color;

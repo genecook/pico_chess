@@ -35,11 +35,16 @@ void ChessEngine::CrackMoveStr(int &start_row,int &start_column,int &end_row,
     } else {
 #ifdef USE_EXCEPTIONS
       throw std::runtime_error("unsupported xboard move string???");
+#else
+      return;
 #endif
     }
   } else if (move_str.size() != 4) {
 #ifdef USE_EXCEPTIONS
     throw std::runtime_error("xboard move string is NOT four chars???");
+ 
+#else
+   return; 
 #endif
   }
   
@@ -135,6 +140,35 @@ std::string ChessEngine::UserMove(std::string opponents_move_str) {
   return "";
 }
 
+//******************************************************************************
+// quick check on proposed user move via game board...
+//******************************************************************************
+  
+bool ChessEngine::PrecheckUserMove(std::string opponents_move_str) {
+  int start_row = -1,start_column = -1,end_row = -1,end_column = -1;
+  
+  CrackMoveStr(start_row,start_column,end_row,end_column,opponents_move_str);
+
+  Move omove(start_row,start_column,end_row,end_column,OpponentsColor());
+  
+  std::vector<Move> all_possible_moves;
+  
+  MovesTree moves_tree(Color(), Levels());
+
+  moves_tree.GetMoves(&all_possible_moves,game_board,OpponentsColor());
+
+  bool this_move_is_possible = false;
+  
+  for (auto pmi = all_possible_moves.begin(); pmi != all_possible_moves.end(); pmi++) {
+    if (*pmi == omove) {
+      this_move_is_possible = true;
+      break;
+    }
+  }
+
+  return this_move_is_possible;
+}
+  
 //******************************************************************************
 // NextMoveAsString...
 //******************************************************************************
