@@ -8,9 +8,9 @@ class ChessEngine {
 		    num_moves(0), num_turns(0), debug(false) {
        Init();		    
     };
-    ~ChessEngine() {};
+    virtual ~ChessEngine() {};
 
-  void Init(int _color = BLACK, int _num_of_levels = NUMBER_OF_LEVELS,
+    void Init(int _color = BLACK, int _num_of_levels = NUMBER_OF_LEVELS,
 	    bool _debug = false) {
          color = _color;
          num_of_levels = _num_of_levels;
