@@ -88,12 +88,19 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
     if (input_state == CHECK_MOVE_STATE) {
       // sanity check on proposed move...
       std::string usermove = tbuf;
-
-      if (my_little_engine->PrecheckUserMove(usermove))
+      if (my_little_engine->PrecheckUserMove(usermove)) {
+	// 'precheck' on move is ok...
         to_xboard("# BBB OK move");
-      else
+	// echo the (user) move back to allow game board to be updated...
+	std::string board_move = "checkmove " + usermove;
+	to_xboard(board_move);
+	// since the users move is good, fall into 'move' state below
+	// to get engines response...
+	input_state = MOVE_STATE;
+      } else {
 	to_xboard("# BBB BAD move");
-      input_state = 0;
+        input_state = 0;
+      }
     }
     
     if (input_state == MOVE_STATE) {
