@@ -188,6 +188,7 @@ std::string ChessEngine::NextMoveAsString(Move *next_move) {
     //std::cout << "#  " << ColorAsStr(OpponentsColor()) << " is checkmated!" << std::endl;
     //std::cout << "#  move that will cause mate: " + EncodeMove(game_board,next_move) << "\n" << std::endl;
     next_move_str = (OpponentsColor() == WHITE) ? "1-0 {Black mates}" : "0-1 {White mates}";
+    next_move_str += "\nmove " + EncodeMove(game_board,next_move);
   } else {
     game_board.MakeMove(next_move->StartRow(),next_move->StartColumn(), // the root node 
   		        next_move->EndRow(),next_move->EndColumn());    //  contains the next move...
