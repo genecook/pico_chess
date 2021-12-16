@@ -63,6 +63,12 @@ class ChessEngine {
 
     int Levels() { return num_of_levels; };
 
+    // in this implementation, can only support two playing levels...
+
+    void ToggleLevels() {
+      num_of_levels = (num_of_levels == NUMBER_OF_LEVELS) ? ADVANCED_LEVELS : NUMBER_OF_LEVELS;
+    }
+
  // encode move in algebraic notation...
 
   static std::string EncodeMove(Board &game_board,Move &src) {

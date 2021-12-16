@@ -61,7 +61,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
     if (input_state == SAVE_STATE) {
       // save board state to file...
       std::string save_file = tbuf;
-      to_xboard("# BBB save to file not supported" + save_file);
+      to_xboard("# Save to file not supported" + save_file);
       //my_little_engine->Save(save_file);
       input_state = 0;
       continue;
@@ -70,7 +70,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
     if (input_state == LOAD_STATE) {
       // load board state from file...
       std::string load_file = tbuf;
-      to_xboard("# BBB load from file not supported" + load_file);
+      to_xboard("# Load from file not supported" + load_file);
       //my_little_engine->Load(load_file);
       input_state = 0;
       continue;
@@ -80,7 +80,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       // debug on or off...
       bool debug_state = (tbuf == "on");
       my_little_engine->SetDebug(debug_state);
-      to_xboard( (debug_state ? "# BBB debug ON" : "# BBB debug OFF") );
+      to_xboard( (debug_state ? "# Debug ON" : "# Debug OFF") );
       input_state = 0;      
       continue;
     }
@@ -90,7 +90,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       std::string usermove = tbuf;
       if (my_little_engine->PrecheckUserMove(usermove)) {
 	// 'precheck' on move is ok...
-        to_xboard("# BBB OK move");
+        to_xboard("# Move is ok");
 	// echo the (user) move back to allow game board to be updated...
 	std::string board_move = "checkmove " + usermove;
 	to_xboard(board_move);
@@ -98,7 +98,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
 	// to get engines response...
 	input_state = MOVE_STATE;
       } else {
-	to_xboard("# BBB BAD move");
+	to_xboard("# Invalid move");
         input_state = 0;
       }
     }
@@ -108,7 +108,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       std::string usermove = tbuf;
       input_state = 0;
 
-      to_xboard("# BBB usermove " + usermove);
+      to_xboard("# usermove " + usermove);
       
       std::string usermove_err_msg = my_little_engine->UserMove(usermove);
      
@@ -124,9 +124,11 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
         // engine is idle...
       } else {
 	// engine makes a move and responds with same...
-	to_xboard("# BBB engine to make move...");
+	to_xboard("# Engine to move...");
+	if (my_little_engine->Levels() == ADVANCED_LEVELS)
+          to_xboard("# Be patient...");
 	std::string engine_move = my_little_engine->NextMove();
-        to_xboard("# BBB engine move made: " + engine_move);
+        to_xboard("# Engine move made: " + engine_move);
       }
       
       if (!xboard_connected) {
@@ -148,8 +150,8 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       // set 'usermove' feature just to make it easier to pick
       // off moves from xboard...
       xboard_connected = true;
-      to_xboard("# BBB xboard");
-      to_xboard("feature usermove=1 debug=1 sigint=0 sigterm=0 done=1");
+      to_xboard("# xboard");
+      //to_xboard("feature usermove=1 debug=1 sigint=0 sigterm=0 done=1");
       continue;
     }
       
@@ -157,31 +159,31 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       // new game. leave force mode. opponent is white, machine is black...
       my_little_engine->NewGame();
       force_mode = false;
-      to_xboard("# BBB new");
+      to_xboard("# new");
       continue;	
     }
       
     if (tbuf == "quit") {
       // game is over...
       game_on = false; 
-      to_xboard("# BBB quit");
+      to_xboard("# quit");
       continue;
     }
       
     if (tbuf == "force") {
       // pause engine...
       force_mode = true;
-      to_xboard("# BBB force");
+      to_xboard("# force");
       continue;
     }
       
     if (tbuf == "go") {
       // 'go' instructs engine to leave force mode, then make the next move...
       force_mode = false;
-      to_xboard("# BBB go");
+      to_xboard("# go");
       std::string engine_move = my_little_engine->NextMove();
       to_xboard(engine_move);
-      to_xboard("# BBB " + engine_move);
+      to_xboard("# " + engine_move);
       continue;
     }
       
@@ -189,28 +191,28 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       // leave force mode. engine changes sides...
       force_mode = false;
       my_little_engine->ChangeSides();
-      to_xboard("# BBB playother");
+      to_xboard("# playother");
       continue;
     }
       
     if (tbuf == "changesizes") {
       // engine changes sides. force mode may or may be in effect...
       my_little_engine->ChangeSides();
-      to_xboard("# BBB changesizes");
+      to_xboard("# changesizes");
       continue;
     }
       
     if (tbuf == "white") {
       // set white on move. set the engine to play black...
       my_little_engine->SetColor("white");
-      to_xboard("# BBB white - engine plays white");	
+      to_xboard("# cpu plays white");	
       continue;
     }
       
     if (tbuf == "black") {
       // set black on move. set the engine to play white...
       my_little_engine->SetColor("black");
-      to_xboard("# BBB black - engine plays black");	
+      to_xboard("# cpu plays black");	
       continue;
     }
       
@@ -231,16 +233,28 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       input_state = CHECK_MOVE_STATE;
       continue;
     }
-	
+
+    if (tbuf == "togglelevels") {
+      my_little_engine->ToggleLevels();
+      to_xboard("# togglelevels");
+      if (my_little_engine->Levels() == ADVANCED_LEVELS)
+	to_xboard("# Play level: advanced");
+      else
+      to_xboard("# Play level: standard");
+      continue;
+    }
+
     if (tbuf == "?") {
-      to_xboard("# BBB ?");	
+      to_xboard("# ?");	
       // move now, if the engine is enabled, else ignore...
       if (force_mode) {
 	// engine is paused...
       } else {
+	if (my_little_engine->Levels() == ADVANCED_LEVELS)
+	  to_xboard("# Be patient...");
 	std::string engine_move = my_little_engine->NextMove();
         to_xboard( "move " + engine_move);
-	to_xboard("# BBB " + engine_move);
+	to_xboard("# " + engine_move);
       }
       continue;
     }
@@ -270,4 +284,5 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
   return rcode;
 }
 
+  
 }

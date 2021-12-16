@@ -12,7 +12,8 @@ namespace PicoChess {
 		 CHECKMATE, DRAW, RESIGN, SQUARE_BLOCKED };
 
 #define NUMBER_OF_LEVELS 3
-  
+#define ADVANCED_LEVELS  5
+
   // print color as string...
   
   static std::string ColorAsStr(int color) {
