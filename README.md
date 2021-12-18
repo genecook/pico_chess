@@ -24,7 +24,9 @@ To start minicom:
 To stop minicom:
 
    Ctrl-A, Z then X
- 
+
+For the following steps make sure both pico usb's are plugged in, at least when first startting openocd...
+
 To start ocd (so far, can only load and flash a new elf using the -c option):
 
    cd ~/Desktop/pico/openocd

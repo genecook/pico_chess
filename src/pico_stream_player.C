@@ -102,7 +102,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
         input_state = 0;
       }
     }
-    
+
     if (input_state == MOVE_STATE) {
       // process 'user' move...
       std::string usermove = tbuf;
@@ -142,6 +142,13 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
     if (tbuf == "showboard") {
       std::string board_as_str = my_little_engine->BoardAsString();
       to_xboard(board_as_str); 
+      continue;
+    }
+      
+    if (tbuf == "showside") {
+      
+      std::string whichside = (my_little_engine->OpponentsColor()==PicoChess::WHITE) ? "useriswhite" : "userisblack";
+      to_xboard(whichside); 
       continue;
     }
       
@@ -195,10 +202,10 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       continue;
     }
       
-    if (tbuf == "changesizes") {
+    if (tbuf == "changesides") {
       // engine changes sides. force mode may or may be in effect...
       my_little_engine->ChangeSides();
-      to_xboard("# changesizes");
+      to_xboard("# changesides");
       continue;
     }
       
