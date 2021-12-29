@@ -145,6 +145,15 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       continue;
     }
       
+    if (tbuf == "placepieces") {
+      std::vector<std::string> piece_placements;
+      my_little_engine->BoardPlacedPieces(piece_placements);
+      for (auto iter = piece_placements.begin(); iter != piece_placements.end(); iter++) {
+	 to_xboard("placepiece " + *iter);
+      }
+      continue;
+    }
+      
     if (tbuf == "showside") {
       
       std::string whichside = (my_little_engine->OpponentsColor()==PicoChess::WHITE) ? "useriswhite" : "userisblack";
