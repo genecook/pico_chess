@@ -180,6 +180,8 @@ public:
     return square;
   };
 
+  void PiecePlacements(std::vector<std::string> &piece_placements);
+
   // use this method to make a move, ie, update the board.
   
   void MakeMove(int start_row, int start_column, int end_row, int end_column);

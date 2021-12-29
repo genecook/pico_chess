@@ -273,8 +273,22 @@ std::string Board::AsString() {
     board_str << "\n";
   }
   board_str << "\n#    a  b  c  d  e  f  g  h\n";
-  return board_str.str();
   
+  return board_str.str();
+}
+
+void Board::PiecePlacements(std::vector<std::string> &piece_placements) {
+  std::string cchars[] = { "a","b","c","d","e","f","g","h" };
+  std::string rchars[] = { "1","2","3","4","5","6","7","8" };
+  for (int row = 0; row < 8; row++) {
+    for (int column = 0; column < 8; column++) {
+       int type, color;
+       if (GetPiece(type,color,row,column)) {
+	 std::string pp = ColorChar(color) + PieceIcon(type) + cchars[column] + rchars[row];
+	 piece_placements.push_back(pp);
+       }
+    }
+  }
 }
   
 /*
