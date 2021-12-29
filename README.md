@@ -6,18 +6,19 @@ to raspberry pi pico. No optimizations to code
 for use on pico, thus not terribly fast. Min-max algorithm only, default
 of three levels. Five levels works too, but is slow.
 
-At some point I'll run performance tests on the original code in SeaChess,
-then do some optimizations on the pico code as a result.
-
 
 Notes to myself on debugging pico code via picoprobe, openocd, gdb
 ------------------------------------------------------------------
-To start picoprobe:
+To see which usb device is active:
+
+   lsblk
+   
+To start picoprobe (assuming pico is 'mapped' to /dev/sda1):
 
    sudo mount /dev/sda1 /mnt/pico
    sudo cp ~/Desktop/pico/picoprobe/build/picoprobe.uf2 /mnt/pico
    
-To start minicom:
+To start minicom (for communication with pico over serial):
 
    sudo minicom -D /dev/ttyACM0 -b 115200
 
@@ -25,12 +26,12 @@ To stop minicom:
 
    Ctrl-A, Z then X
 
-For the following steps make sure both pico usb's are plugged in, at least when first startting openocd...
+For the following steps make sure both pico usb's are plugged in, at least when first starting openocd...
 
-To start ocd (so far, can only load and flash a new elf using the -c option):
+To start ocd:
 
    cd ~/Desktop/pico/openocd
-   sudo src/openocd -f tcl/interface/picoprobe.cfg -f tcl/target/rp2040.cfg -s tcl -c "program hello_world.elf"
+   sudo src/openocd -f tcl/interface/picoprobe.cfg -f tcl/target/rp2040.cfg -s tcl
 
 To compile with debug symbols (using cmake version 3.16.3):
 
@@ -46,9 +47,10 @@ To compile with debug symbols (using cmake version 3.16.3):
 
 To run gdb:
 
-   gdb-multiarch hello_world.elf
+   gdb-multiarch 
    target remote localhost:3333
-   file hello_world.elf           ### gdb-multiarch doesn't automatically load debug symbols
+   load pico_chess.elf
+   file pico_chess.elf  ### gdb-multiarch doesn't automatically load debug symbols
    monitor reset init
    continue
 
