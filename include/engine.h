@@ -58,6 +58,10 @@ class ChessEngine {
       return game_board.AsString();
     };
 
+    void BoardPlacedPieces(std::vector<std::string> &piece_placements) {
+      game_board.PiecePlacements(piece_placements);
+    };
+  
     int Color() { return color; };
     int OpponentsColor() { return (Color() == WHITE) ? BLACK : WHITE; };
 
@@ -69,25 +73,24 @@ class ChessEngine {
       num_of_levels = (num_of_levels == NUMBER_OF_LEVELS) ? ADVANCED_LEVELS : NUMBER_OF_LEVELS;
     }
 
- // encode move in algebraic notation...
+    // encode move in algebraic notation...
 
-  static std::string EncodeMove(Board &game_board,Move &src) {
-    return game_board.Coordinates(src.StartRow(),src.StartColumn())
-      + game_board.Coordinates(src.EndRow(),src.EndColumn());
-  };
-  static std::string EncodeMove(Board &game_board,Move *src) {
-    return game_board.Coordinates(src->StartRow(),src->StartColumn())
-      + game_board.Coordinates(src->EndRow(),src->EndColumn());
-  };
+    static std::string EncodeMove(Board &game_board,Move &src) {
+      return game_board.Coordinates(src.StartRow(),src.StartColumn())
+        + game_board.Coordinates(src.EndRow(),src.EndColumn());
+    };
+    static std::string EncodeMove(Board &game_board,Move *src) {
+      return game_board.Coordinates(src->StartRow(),src->StartColumn())
+        + game_board.Coordinates(src->EndRow(),src->EndColumn());
+    };
 
   private:
-    int color;
-    Board game_board;
-    int num_of_levels;
-    int num_moves;
-    int num_turns;
-    bool debug;
-  
+    int         color;
+    Board       game_board;
+    int         num_of_levels;
+    int         num_moves;
+    int         num_turns;
+    bool        debug;
     std::string debug_move_trigger;
 };
 
