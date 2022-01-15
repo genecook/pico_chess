@@ -125,9 +125,13 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       } else {
 	// engine makes a move and responds with same...
 	to_xboard("# Engine to move...");
-	if (my_little_engine->Levels() == ADVANCED_LEVELS)
-          to_xboard("# Be patient...");
+	if (my_little_engine->Levels() == ADVANCED_LEVELS) {
+	  to_xboard("# start progress bar");
+	}
 	std::string engine_move = my_little_engine->NextMove();
+	if (my_little_engine->Levels() == ADVANCED_LEVELS) {
+	  to_xboard("# cancel progress bar");
+	}
         to_xboard("# Engine move made: " + engine_move);
       }
       
