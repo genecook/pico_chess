@@ -39,7 +39,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
   // we 'parse' just enough of xboard commands, responses, to drive our engine...
   
   enum { ACCEPT_STATE = 1, MOVE_STATE = 2, SAVE_STATE = 3, LOAD_STATE = 4, DEBUG_STATE = 5,
-         CHECK_MOVE_STATE = 6 };
+         CHECK_MOVE_STATE = 6, REPLAY_CPU_MOVE_STATE = 7, REPLAY_USER_MOVE_STATE = 7 };
   
   int input_state = 0;            // parsing state
 
@@ -103,12 +103,47 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
       }
     }
 
+    if (input_state == REPLAY_CPU_MOVE_STATE) {
+      // process 'cpu' replay move...
+      std::string cpumove = tbuf;
+      input_state = 0;
+
+      to_xboard("# replay cpu move " + cpumove);
+      
+      std::string cpumove_err_msg = my_little_engine->ReplayMove(cpumove,my_little_engine->Color());
+     
+      if (cpumove_err_msg == "") {
+        // cpu move accepted by engine...
+      } else {
+	// oops! problem with cpu move; response from engine indicates error...
+        to_xboard(cpumove_err_msg);
+      }
+    }
+    
+    if (input_state == REPLAY_USER_MOVE_STATE) {
+      // process 'user' replay move...
+      std::string usermove = tbuf;
+      input_state = 0;
+
+      to_xboard("# replay user move " + usermove);
+      
+      std::string usermove_err_msg = my_little_engine->ReplayMove(usermove,my_little_engine->OpponentsColor());
+     
+      if (usermove_err_msg == "") {
+        // user replay move accepted by engine...
+      } else {
+	// oops! problem with user replay move; response from engine indicates error...
+        to_xboard(usermove_err_msg);
+      }
+    }
+    
     if (input_state == MOVE_STATE) {
       // process 'user' move...
       std::string usermove = tbuf;
       input_state = 0;
 
       to_xboard("# usermove " + usermove);
+      to_xboard("recordusermove " + usermove);
       
       std::string usermove_err_msg = my_little_engine->UserMove(usermove);
      
@@ -133,6 +168,7 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
 	  to_xboard("# cancel progress bar");
 	}
         to_xboard("# Engine move made: " + engine_move);
+        to_xboard("recordcpumove " + engine_move);
       }
       
       if (!xboard_connected) {
@@ -245,6 +281,18 @@ int Play(PicoChess::ChessEngine *my_little_engine) {
     if (tbuf == "usermove") {
       // next token is move from xboard...
       input_state = MOVE_STATE;
+      continue;
+    }
+    
+    if (tbuf == "replaycpumove") {
+      // next token is move from xboard...
+      input_state = REPLAY_CPU_MOVE_STATE;
+      continue;
+    }
+    
+    if (tbuf == "replayusermove") {
+      // next token is move from xboard...
+      input_state = REPLAY_USER_MOVE_STATE;
       continue;
     }
     

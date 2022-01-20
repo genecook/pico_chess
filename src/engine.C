@@ -141,6 +141,23 @@ std::string ChessEngine::UserMove(std::string opponents_move_str) {
 }
 
 //******************************************************************************
+// CpuMove - internal method. Used to facilate game replay. Not for general use
+//           otherwise!
+//******************************************************************************
+  
+std::string ChessEngine::ReplayMove(std::string move_str, int color) {
+  int start_row = -1,start_column = -1,end_row = -1,end_column = -1;
+
+  CrackMoveStr(start_row,start_column,end_row,end_column,move_str);
+
+  Move omove(start_row,start_column,end_row,end_column,color);
+  
+  game_board.MakeMove(start_row,start_column,end_row,end_column);
+
+  return "";
+}
+  
+//******************************************************************************
 // quick check on proposed user move via game board...
 //******************************************************************************
   

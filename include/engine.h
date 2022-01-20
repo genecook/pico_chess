@@ -30,7 +30,9 @@ class ChessEngine {
 
     std::string UserMove(std::string opponents_move_str);
     std::string NextMove();
-  
+ 
+    std::string ReplayMove(std::string move_str,int color);
+
     bool PrecheckUserMove(std::string opponents_move_str);
   
     void NewGame() {
