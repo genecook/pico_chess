@@ -225,6 +225,7 @@ void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *
   if (root_node->PossibleMovesCount() == 0) {
     // this is the root node. no moves can be made. will ASSUME draw or checkmate..."
     root_node->SetOutcome(RESIGN);
+    return;
   }
   
   // sort from best move to worst, according to score...
