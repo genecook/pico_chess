@@ -7,8 +7,7 @@ for use on pico, thus not terribly fast. Min-max algorithm only, default
 of three levels. Five levels works too, but is slow.
 
 Debugged using serial port (minicom) but since having implemented
-a corresponding GUI (see [PicoGui](https://github.com/genecook/pico_gui)
-have not tested the operation over serial.
+a corresponding GUI (see [PicoGui](https://github.com/genecook/pico_gui).
 
 Notes to myself on debugging pico code via picoprobe, openocd, gdb
 ------------------------------------------------------------------
