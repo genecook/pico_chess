@@ -19,10 +19,16 @@ std::string ChessEngine::ChooseMove(Board &game_board, Move *suggested_move) {
 
   int64_t elapsed_time_ms = absolute_time_diff_us(abs_start_time,abs_end_time) / 1000;
   float elapsed_time_s = ((float) elapsed_time_ms) / 1000.0;
-  
+
+  char elapsed_time[32];
+  if (elapsed_time_s > 60)
+    sprintf(elapsed_time,"%3.1f minutes",elapsed_time_s / 60);
+  else
+    sprintf(elapsed_time,"%3.1f seconds",elapsed_time_s);
+    
   char tbuf[128];
-  sprintf(tbuf,"# of levels: %d, number of moves evaluated: %d, elapsed time: %3.1f seconds\n",
-	  moves_tree->MaxLevels(), moves_tree->MovesEvalCount(), elapsed_time_s);
+  sprintf(tbuf,"# of levels: %d, number of moves evaluated: %d, elapsed time: %s\n",
+	  moves_tree->MaxLevels(), moves_tree->MovesEvalCount(), elapsed_time);
   
   std::string move_str = std::string(tbuf) + NextMoveAsString(&next_move);
 
