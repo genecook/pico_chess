@@ -10,6 +10,10 @@ set(CMAKE_MODULE_PATH $ENV{PICO_SDK_PATH} $ENV{PICO_EXAMPLES})
 include(pico_sdk_import)
 
 project(pico_chess C CXX ASM)
+
+# use Debug or Release:
+set(CMAKE_BUILD_TYPE Release)
+
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
