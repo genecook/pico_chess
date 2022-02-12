@@ -1,4 +1,5 @@
 #include <chess.h>
+#include <pico/time.h>
 
 namespace PicoChess {
 
@@ -7,14 +8,21 @@ namespace PicoChess {
 //******************************************************************************
 
 std::string ChessEngine::ChooseMove(Board &game_board, Move *suggested_move) {
+  absolute_time_t abs_start_time = get_absolute_time();
+  
   MovesTree *moves_tree = new MovesTreeMinimax(Color(), Levels());
 
   Move next_move;
   int num_moves = moves_tree->ChooseMove(&next_move,game_board,suggested_move);
 
+  absolute_time_t abs_end_time = get_absolute_time();
+
+  int64_t elapsed_time_ms = absolute_time_diff_us(abs_start_time,abs_end_time) / 1000;
+  float elapsed_time_s = ((float) elapsed_time_ms) / 1000.0;
+  
   char tbuf[128];
-  sprintf(tbuf,"# of levels: %d, number of moves evaluated: %d\n",
-	  moves_tree->MaxLevels(), moves_tree->MovesEvalCount());
+  sprintf(tbuf,"# of levels: %d, number of moves evaluated: %d, elapsed time: %3.1f seconds\n",
+	  moves_tree->MaxLevels(), moves_tree->MovesEvalCount(), elapsed_time_s);
   
   std::string move_str = std::string(tbuf) + NextMoveAsString(&next_move);
 
