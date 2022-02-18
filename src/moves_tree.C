@@ -59,39 +59,15 @@ bool MovesTree::GetMoves(std::vector<Move> *possible_moves, Board &game_board, i
     // king is in check, so no need to check castling intermediate squares...
   } else {
     // make sure no opponents piece 'covers' any intermediate castling square...
-    int squares_to_check[] = { 0,0,0,0 };
-    if (game_board.CastleValid(color,/* kings-side */ true)) {
-      // validate castling, kings side...
-      squares_to_check[0] = 5;
-      squares_to_check[1] = 6;
-    }
-    
-    if (squares_to_check[0] != 0)
-      for (int i = 0; (i < 8) && castling_enabled; i++) {
-         for (int j = 0; (j < 8) && castling_enabled; j++) {
-            int piece_type, piece_color;
-            if (game_board.GetPiece(piece_type, piece_color,i,j)) {
-	      if (piece_color == color)
-	        continue; // this is 'our' piece...
-	      // for current board state, does 'opponents' piece 'cover' a 'castling' square?
-	      for (int k = 0; (squares_to_check[k] != 0) && castling_enabled; k++)
-	         if (pieces.Check(game_board,kings_row,squares_to_check[k],piece_type,piece_color,i,j)) {
-	           castling_enabled = false;
-	      }
-	    }
-         }
-      }
 
-    if (game_board.CastleValid(color,/* queen-side */ false)) {
-    // validate castling, queens side...
-      squares_to_check[0] = 1;
-      squares_to_check[1] = 2;
-      squares_to_check[2] = 3;
-    }
+    bool castling_enabled_kings_side = game_board.CastleValid(color,/* kings-side */ true);
     
-    if (squares_to_check[0] != 0)
-      for (int i = 0; (i < 8) && castling_enabled; i++) {
-         for (int j = 0; (j < 8) && castling_enabled; j++) {
+    // validate castling, kings side...
+    
+    if (castling_enabled_kings_side) {
+      int squares_to_check[] = { 5, 6, 0 };
+      for (int i = 0; (i < 8) && castling_enabled_kings_side; i++) {
+         for (int j = 0; (j < 8) && castling_enabled_kings_side; j++) {
             int piece_type, piece_color;
             if (game_board.GetPiece(piece_type, piece_color,i,j)) {
 	      if (piece_color == color)
@@ -99,14 +75,38 @@ bool MovesTree::GetMoves(std::vector<Move> *possible_moves, Board &game_board, i
 	      // for current board state, does 'opponents' piece 'cover' a 'castling' square?
 	      for (int k = 0; (squares_to_check[k] != 0) && castling_enabled; k++)
 	         if (pieces.Check(game_board,kings_row,squares_to_check[k],piece_type,piece_color,i,j)) {
-	           castling_enabled = false;
+	           castling_enabled_kings_side = false;
 	      }
 	    }
          }
       }
+    }
+
+    bool castling_enabled_queens_side = game_board.CastleValid(color,/* queen-side */ false);
     
+    // validate castling, queens side...
+    
+    if (castling_enabled_queens_side) {
+      int squares_to_check[] = { 1, 2, 3, 0 };
+      for (int i = 0; (i < 8) && castling_enabled_queens_side; i++) {
+         for (int j = 0; (j < 8) && castling_enabled_queens_side; j++) {
+            int piece_type, piece_color;
+            if (game_board.GetPiece(piece_type, piece_color,i,j)) {
+	      if (piece_color == color)
+	        continue; // this is 'our' piece...
+	      // for current board state, does 'opponents' piece 'cover' a 'castling' square?
+	      for (int k = 0; (squares_to_check[k] != 0) && castling_enabled; k++)
+	         if (pieces.Check(game_board,kings_row,squares_to_check[k],piece_type,piece_color,i,j)) {
+	           castling_enabled_queens_side = false;
+	      }
+	    }
+         }
+      }  
+    }
+
+    castling_enabled = castling_enabled_kings_side || castling_enabled_queens_side;
   }
-    
+  
   std::vector<Move> all_possible_moves;
   
   for (int i = 0; i < 8; i++) {
