@@ -20,10 +20,12 @@ To start picoprobe (assuming pico is 'mapped' to /dev/sda1):
    sudo mount /dev/sda1 /mnt/pico
    sudo cp ~/Desktop/pico/picoprobe/build/picoprobe.uf2 /mnt/pico
    
-To start minicom (for communication with pico over serial):
+To start minicom (for communication with pico over serial)*:
 
-   sudo minicom -D /dev/ttyACM0 -b 115200
+   sudo minicom -D /dev/ttyACM0 -b 115200 [-C capture-file]
 
+  *use the -C option to capture minicom output to file
+  
 To stop minicom:
 
    Ctrl-A, Z then X
